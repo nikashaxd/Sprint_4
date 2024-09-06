@@ -3,6 +3,7 @@ from pages.base_page import BasePage
 from locators.order_locators import OrderForWhoFieldsLocators, OrderRentFieldsLocators
 import allure
 
+
 class OrderPageForWho(BasePage):
     locators = OrderForWhoFieldsLocators()
 
@@ -46,8 +47,9 @@ class OrderPageRent(BasePage):
     def select_rent_date(self, date):
         date_input = self.element_is_visible(self.locators.WHEN_TO_RENT_INPUT)
         date_input.click()
-        specific_date = (By.XPATH, f"//div[contains(@class, 'react-datepicker__day') and text()='{date}']")
-        self.element_is_visible(specific_date).click()
+        self.element_is_visible(
+            (By.XPATH, self.locators.SPECIFIC_DATE_TEMPLATE.format(date=date))
+        ).click()
 
     @allure.step("Выбираем срок аренды: {period}")
     def select_rent_period(self, period):
@@ -81,4 +83,3 @@ class OrderPageRent(BasePage):
     @allure.step("Проверяем, что заказ оформлен")
     def check_order_confirmation(self):
         return self.element_is_visible(self.locators.ORDER_IS_CREATED_WINDOW).is_displayed()
-

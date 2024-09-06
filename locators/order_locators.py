@@ -18,6 +18,7 @@ class OrderRentFieldsLocators:
     CALENDER_WINDOW = (By.CSS_SELECTOR,
                        'div[class = "react-datepicker__month-container"')  #Окно выпадающего календаря, в котором нужно выбрать дату кликом
     CALENDER_DATE = (By.CSS_SELECTOR, 'div[class = "react-datepicker__week"]')  #Выбор даты в календаре
+    SPECIFIC_DATE_TEMPLATE = "//div[contains(@class, 'react-datepicker__day') and text()='{date}']"
     RENTAL_PERIOD_INPUT = (By.XPATH, '//div[text()="* Срок аренды"]')
     RENT_OPTION = (By.CSS_SELECTOR, 'div[class = "Dropdown-option"')  #Выпадающее окно с выбором суток
     COLOR_CHECKBOX = (By.CSS_SELECTOR, 'div[class = "Order_Checkboxes__3lWSI"')

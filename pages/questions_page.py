@@ -3,6 +3,7 @@ from pages.base_page import BasePage
 from locators.questions_locators import QuestionsLocators
 import allure
 
+
 class QuestionsPage(BasePage):
     locators = QuestionsLocators
 
@@ -13,9 +14,14 @@ class QuestionsPage(BasePage):
         try:
             question_element.click()
         except ElementClickInterceptedException:
-            self.driver.execute_script("arguments[0].click();", question_element)
+            self.execute_script("arguments[0].click();", question_element)
 
     @allure.step("Проверяем, что текст ответа виден")
     def is_answer_visible(self, answer_locator):
         answer_element = self.element_is_visible(answer_locator)
         return answer_element.is_displayed()
+
+    @allure.step("Получаем текст ответа")
+    def get_answer_text(self, answer_locator):
+        answer_element = self.element_is_visible(answer_locator)
+        return answer_element.text

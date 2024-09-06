@@ -30,3 +30,7 @@ class BasePage:
     @allure.step("Скроллим к элементу {element}")
     def go_to_element(self, element):
         self.driver.execute_script("arguments[0].scrollIntoView();", element)
+
+    @allure.step("Используем JavaScript для принудительного клика {element}")
+    def execute_script(self, script, element=None):
+        self.driver.execute_script(script, element)
