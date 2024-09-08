@@ -7,6 +7,10 @@ import allure
 class QuestionsPage(BasePage):
     locators = QuestionsLocators
 
+    @allure.step("Открываем главную страницу")
+    def open_homepage(self, url):
+        self.driver.get(url)
+
     @allure.step("Кликаем на вопрос")
     def click_question(self, question_locator):
         question_element = self.element_is_visible(question_locator)

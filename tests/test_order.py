@@ -2,6 +2,7 @@ import pytest
 import allure
 from pages.order_page import OrderPageForWho, OrderPageRent
 from locators.main_page_locators import MainPageLocators
+from urls import Urls
 
 
 @allure.feature("Тесты оформления заказа")
@@ -15,13 +16,13 @@ class TestOrder:
         ])
     @allure.title("Тест заказа через верхнюю кнопку 'Заказать'")
     @allure.description("Тест проверяет заполнение полей и успешное оформление заказа")
-    def test_order_scooter_top_button(self, driver, name, surname, address, metro_station, phone, rent_date, rent_period,
-                                      scooter_color, comment):
-        url = "https://qa-scooter.praktikum-services.ru/"
-        driver.get(url)
+    def test_order_scooter_top_button(self, driver, name, surname, address, metro_station, phone, rent_date,
+                                      rent_period, scooter_color, comment):
+        order_page_for_who = OrderPageForWho(driver, Urls.HOME_PAGE)
+        order_page_rent = OrderPageRent(driver, Urls.HOME_PAGE)
 
-        order_page_for_who = OrderPageForWho(driver, url)
-        order_page_rent = OrderPageRent(driver, url)
+        order_page_for_who.open_homepage(Urls.HOME_PAGE)
+
         order_page_for_who.element_is_visible(MainPageLocators.ORDER_BUTTON_TOP).click()
         # Заполнение формы "Для кого самокат"
         order_page_for_who.fill_name(name)
@@ -50,15 +51,11 @@ class TestOrder:
     @allure.description("Тест проверяет заполнение полей и успешное оформление заказа")
     def test_order_scooter_bottom_button(self, driver, name, surname, address, metro_station, phone, rent_date, rent_period,
                                          scooter_color, comment):
-        url = "https://qa-scooter.praktikum-services.ru/"
-        driver.get(url)
+        order_page_for_who = OrderPageForWho(driver, Urls.HOME_PAGE)
+        order_page_rent = OrderPageRent(driver, Urls.HOME_PAGE)
+        order_page_for_who.open_homepage(Urls.HOME_PAGE)
 
-        order_page_for_who = OrderPageForWho(driver, url)
-        order_page_rent = OrderPageRent(driver, url)
-        bottom_order_button = order_page_for_who.element_is_visible(MainPageLocators.ORDER_BUTTON_BOTTOM)
-        order_page_for_who.go_to_element(bottom_order_button)
-
-        order_page_for_who.execute_script("arguments[0].click();", bottom_order_button)
+        order_page_for_who.click_bottom_order_button()
 
         # Заполнение формы "Для кого самокат"
         order_page_for_who.fill_name(name)

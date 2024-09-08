@@ -2,6 +2,7 @@ import pytest
 import allure
 from pages.questions_page import QuestionsPage
 from locators.questions_locators import QuestionsLocators
+from urls import Urls
 
 
 @allure.feature("Тесты вопросов и ответов")
@@ -41,11 +42,9 @@ class TestQuestions:
     @allure.title("Проверка текста ответа на вопросы")
     @allure.description("Тест проверяет текст ответа на каждый вопрос в разделе 'Вопросы о важном'")
     def test_question_answer(self, driver, question_locator, answer_locator, expected_text):
-        url = "https://qa-scooter.praktikum-services.ru/"
-        driver.get(url)
 
-        questions_page = QuestionsPage(driver, url)
-
+        questions_page = QuestionsPage(driver, Urls.HOME_PAGE)
+        questions_page.open_homepage(Urls.HOME_PAGE)
         questions_page.click_question(question_locator)
 
         assert questions_page.is_answer_visible(

@@ -1,4 +1,6 @@
 from selenium.webdriver.common.by import By
+
+from locators.main_page_locators import MainPageLocators
 from pages.base_page import BasePage
 from locators.order_locators import OrderForWhoFieldsLocators, OrderRentFieldsLocators
 import allure
@@ -38,6 +40,12 @@ class OrderPageForWho(BasePage):
     @allure.step("Нажимаем кнопку Далее")
     def click_next_button(self):
         self.element_is_visible(self.locators.NEXT_BUTTON).click()
+
+    @allure.step("Кликаем по нижней кнопке 'Заказать'")
+    def click_bottom_order_button(self):
+        bottom_order_button = self.element_is_visible(MainPageLocators.ORDER_BUTTON_BOTTOM)
+        self.go_to_element(bottom_order_button)
+        self.execute_script("arguments[0].click();", bottom_order_button)
 
 
 class OrderPageRent(BasePage):
